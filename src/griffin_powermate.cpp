@@ -87,7 +87,7 @@ int PowerMate::openPowerMate(const char *device_path)
     if (found!=std::string::npos)
     {
       // if everything checks out, print on screen and return the file descriptor
-      ROS_INFO("Found \x1b[1;34m'%s'\x1b[0m device. Starting to read ...\n", name);
+      ROS_INFO("Found \x1b[1;34m'%s'\x1b[0m device, id=%d. Starting to read ...\n", name, fd);
       return fd;
     } // end if
   } // end for
@@ -178,7 +178,7 @@ void PowerMate::processEvent(struct input_event *ev, ros::Publisher& ros_publish
       ROS_INFO("The LED pulse settings were changed; code=0x%04x, value=0x%08x\n", ev->code, ev->value);
       break;
     case EV_REL:				// Upon receiving rotation data
-      if(ev->code != REL_DIAL)
+      if(ev->code != REL_WHEEL)
 	ROS_WARN("Unexpected rotation event; ev->code = 0x%04x\n", ev->code);
       else
       {
@@ -197,7 +197,7 @@ void PowerMate::processEvent(struct input_event *ev, ros::Publisher& ros_publish
       }
       break;
     case EV_KEY:				// Upon receiving data about pressing and depressing the dial button
-      if(ev->code != BTN_0)
+      if(ev->code != BTN_LEFT)
 	ROS_WARN("Unexpected key event; ev->code = 0x%04x\n", ev->code);
       else
       {

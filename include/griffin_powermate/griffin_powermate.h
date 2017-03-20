@@ -118,6 +118,7 @@ private:
   /** A list of substrings that would indicate that a device is Griffin PowerMate USB device. */
   std::vector<std::string> valid_substrings_ =
   {
+    "A4Tech USB Mouse",
     "Griffin PowerMate",
     "Griffin SoundKnob"
   };
